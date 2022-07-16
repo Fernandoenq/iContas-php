@@ -88,8 +88,11 @@ class ExpenseController extends Controller
             abort(403);
         }
 
+
         $attributes = $request->only([
-            'name'
+            'title',
+            'value',
+            'due_date'
         ]);
 
         $expense->update($attributes);
@@ -130,7 +133,7 @@ class ExpenseController extends Controller
             abort(404);
         }
 
-        $expense->update(['paid' => 1]);
+        $expense->update(['paid' => 0]);
 
         return redirect('/dashboard')->with('success', 'Removido pagamento da despesa com sucesso');
     }
@@ -141,8 +144,11 @@ class ExpenseController extends Controller
      * @param  \App\Models\Expense  $expense
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Expense $expense)
+    public function delete($id)
     {
-        //
+        
+        $expense = Expense::find($id);
+        $expense->delete();
+        return redirect('/dashboard')->with('success', 'Despesa deletada com sucesso');
     }
 }

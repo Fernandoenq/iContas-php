@@ -26,7 +26,7 @@
             @else
                 <a href="/expenses/pay/{{ $expense->id }}" class="btn_2 bg-blue mb-4" style="border: none; width: 100%;">Paga</a>
             @endif
-            <form action="/expenses" method="post">
+            <form action="/expenses/{{ $expense->id }}" method="post">
                 @csrf
                 @method('put')
                 <div class="mb-3">
@@ -41,7 +41,15 @@
                     <label for="due_date">Vencimento</label>
                     <input type="date" class="form-control" name="due_date" value="{{ $expense->due_date->format('Y-m-d') }}">
                 </div>
+                
                 <button type="submit" class="btn_2 mb-3" style="border: none; width: 100%;">Enviar</button>
+            </form>
+
+            <form action="/expenses/{{ $expense->id }}" method="post">
+                @csrf
+                @method('post')
+                <button type="submit" class="btn_2 bg-red mb-3" style="border: none; width: 100%;">DELETAR</button>
+                <a href="/expeses/{{ $expense->id }}" class="btn_2 bg-red mb-4" style="border: none; width: 100%;">Paga</a>
             </form>
         </div>
     </section>
